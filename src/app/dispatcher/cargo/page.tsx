@@ -8,6 +8,7 @@ import { CargoList } from "@/features/cargo/components/CargoList";
 import { CargoPagination } from "@/features/cargo/components/CargoPagination";
 import { CargoState } from "@/features/cargo/components/CargoState";
 import { CargoFilters } from "@/features/cargo/components/CargoFilters";
+import { CargoSkeleton } from "@/features/cargo/components/CargoSkeleton";
 
 export default function CargoPage() {
   const [page, setPage] = useState(1);
@@ -51,7 +52,7 @@ export default function CargoPage() {
       <div className="mx-auto max-w-7xl space-y-6">
         <CargoHeader />
 
-        {isLoading && <CargoState type="loading" />}
+        {isLoading && <CargoSkeleton />}
 
         {isError && <CargoState type="error" onRetry={() => refetch()} />}
 
