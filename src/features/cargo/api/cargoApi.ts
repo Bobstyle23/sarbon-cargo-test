@@ -56,7 +56,7 @@ export async function getCargoList(params: CargoQueryParams) {
     const { data } = await api.get<CargoResponse>("/dispatchers/cargo/all", {
       params: {
         page: params.page,
-        limit: 1,
+        limit: params.limit,
         sort: "created_at:desc",
         status: "SEARCHING_ALL",
       },
