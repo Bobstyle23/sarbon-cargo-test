@@ -1,8 +1,10 @@
 import { api } from "@/shared/api/axios";
+import type { Lang } from "../i18n/cargoDictionary";
 
 export type CargoQueryParams = {
   page: number;
   limit: number;
+  lang: Lang;
 };
 
 type RoutePoint = {
@@ -55,6 +57,9 @@ export async function getCargoList(params: CargoQueryParams) {
       limit: params.limit,
       sort: "created_at:desc",
       status: "SEARCHING_ALL",
+    },
+    headers: {
+      "X-Language": params.lang,
     },
   });
 
