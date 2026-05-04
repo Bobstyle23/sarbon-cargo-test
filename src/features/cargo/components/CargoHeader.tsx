@@ -1,4 +1,4 @@
-function CargoHeader() {
+export function CargoHeader() {
   return (
     <header>
       <h1 className="text-2xl font-bold text-slate-900 md:text-3xl">
@@ -8,5 +8,3 @@ function CargoHeader() {
     </header>
   );
 }
-
-export default CargoHeader;
