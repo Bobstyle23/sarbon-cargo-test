@@ -25,6 +25,10 @@ Frontend test task for redesigning dispatcher cargo list page.
 - Responsive design
 - UZ / RU / EN language switcher
 
+## API note
+
+in case of the provided API token returns `401 Unauthorized`, for demo stability, the app includes a mock-data fallback while keeping the real API integration and required headers.
+
 ## Getting started
 
 ```bash
