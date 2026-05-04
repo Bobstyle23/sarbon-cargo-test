@@ -5,16 +5,47 @@ export type CargoQueryParams = {
   limit: number;
 };
 
+type RoutePoint = {
+  id: string;
+  type: "LOAD" | "UNLOAD";
+  city_name: string;
+  country_code: string;
+  address: string;
+  date: string;
+};
+
 export type Cargo = {
   id: string;
-  [key: string]: unknown;
+  name: string;
+  status: string;
+  weight: number | null;
+  volume: number | null;
+  truck_type: string | null;
+  trailer_plate_type: string | null;
+  contact_name: string | null;
+  contact_phone: string | null;
+  created_at: string;
+  route_points: RoutePoint[];
+  cargo_type: {
+    name_uz: string;
+    name_ru: string;
+    name_en: string;
+  } | null;
+  payment: {
+    total_amount: number | null;
+    total_currency: string | null;
+    is_negotiable: boolean;
+  } | null;
 };
 
 export type CargoResponse = {
-  data?: Cargo[];
-  total?: number;
-  page?: number;
-  limit?: number;
+  status: string;
+  code: number;
+  description: string;
+  data: {
+    items: Cargo[];
+    total: number;
+  };
 };
 
 export async function getCargoList(params: CargoQueryParams) {
