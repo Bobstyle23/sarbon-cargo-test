@@ -1,5 +1,7 @@
 import { api } from "@/shared/api/axios";
 import type { Lang } from "../i18n/cargoDictionary";
+import { mockCargoResponse } from "./mockCargo";
+import { warn } from "console";
 
 export type CargoQueryParams = {
   page: number;
@@ -51,17 +53,22 @@ export type CargoResponse = {
 };
 
 export async function getCargoList(params: CargoQueryParams) {
-  const { data } = await api.get<CargoResponse>("/dispatchers/cargo/all", {
-    params: {
-      page: params.page,
-      limit: params.limit,
-      sort: "created_at:desc",
-      status: "SEARCHING_ALL",
-    },
-    headers: {
-      "X-Language": params.lang,
-    },
-  });
+  try {
+    const { data } = await api.get<CargoResponse>("/dispatchers/cargo/all", {
+      params: {
+        page: params.page,
+        limit: params.limit,
+        sort: "created_at:desc",
+        status: "SEARCHING_ALL",
+      },
+      headers: {
+        "X-Language": params.lang,
+      },
+    });
 
-  return data;
+    return data;
+  } catch (error) {
+    console.warn("API unavailable, using mock data", error);
+    return mockCargoResponse;
+  }
 }
