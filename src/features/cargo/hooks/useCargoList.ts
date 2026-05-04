@@ -1,11 +1,10 @@
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { getCargoList, type CargoQueryParams } from "../api/cargoApi";
-import type { Lang } from "../i18n/cargoDictionary";
 
-export function useCargoList(page: number, limit: number, lang: Lang) {
+export function useCargoList(params: CargoQueryParams) {
   return useQuery({
-    queryKey: ["cargo-list", page, limit, lang],
-    queryFn: () => getCargoList({ page, limit, lang }),
+    queryKey: ["cargo-list", params],
+    queryFn: () => getCargoList(params),
     placeholderData: keepPreviousData,
   });
 }
