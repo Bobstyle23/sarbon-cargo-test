@@ -33,7 +33,7 @@ export function CargoHeader({ title, subtitle, lang, onLangChange }: Props) {
           <SelectValue />
         </SelectTrigger>
 
-        <SelectContent>
+        <SelectContent className="bg-white border shadow-md">
           <SelectItem value="uz">UZ</SelectItem>
           <SelectItem value="ru">RU</SelectItem>
           <SelectItem value="en">EN</SelectItem>

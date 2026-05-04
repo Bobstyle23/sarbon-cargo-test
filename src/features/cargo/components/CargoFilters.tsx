@@ -32,7 +32,7 @@ export function CargoFilters({
   onClear,
 }: Props) {
   return (
-    <div className="rounded-xl border bg-white p-4">
+    <div className="bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80">
       <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-4">
         <Input
           placeholder="Search by cargo, city, contact..."
@@ -58,11 +58,11 @@ export function CargoFilters({
             onTruckTypeChange(value === "all" ? "" : value);
           }}
         >
-          <SelectTrigger className="w-full">
+          <SelectTrigger className="w-full bg-white">
             <SelectValue placeholder="Truck type" />
           </SelectTrigger>
 
-          <SelectContent>
+          <SelectContent className="bg-white border shadow-md">
             <SelectItem value="all">All truck types</SelectItem>
             <SelectItem value="REFRIGERATOR">REFRIGERATOR</SelectItem>
             <SelectItem value="TENT">TENT</SelectItem>
