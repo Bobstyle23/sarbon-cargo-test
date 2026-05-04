@@ -1,5 +1,4 @@
 "use client";
-"use client";
 
 import { useState } from "react";
 import { useCargoList } from "@/features/cargo/hooks/useCargoList";
@@ -11,12 +10,17 @@ import { CargoState } from "@/features/cargo/components/CargoState";
 
 export default function CargoPage() {
   const [page, setPage] = useState(1);
-  const [limit] = useState(20);
+  const [limit, setLimit] = useState(20);
 
   const { data, isLoading, isError, refetch } = useCargoList(page, limit);
 
   const cargos = data?.data.items ?? [];
   const total = data?.data.total ?? 0;
+
+  const handleLimitChange = (newLimit: number) => {
+    setLimit(newLimit);
+    setPage(1);
+  };
 
   return (
     <main className="min-h-screen bg-slate-50 p-4 md:p-8">
@@ -42,6 +46,7 @@ export default function CargoPage() {
                   limit={limit}
                   itemsLength={cargos.length}
                   onPageChange={setPage}
+                  onLimitChange={handleLimitChange}
                 />
               </>
             )}
