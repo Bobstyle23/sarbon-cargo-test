@@ -147,7 +147,7 @@ export default function CargoPage() {
                 <CargoPagination
                   page={page}
                   limit={limit}
-                  itemsLength={filteredCargos.length}
+                  total={total}
                   onPageChange={setPage}
                   onLimitChange={handleLimitChange}
                 />

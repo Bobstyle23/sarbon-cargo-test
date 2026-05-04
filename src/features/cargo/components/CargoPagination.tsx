@@ -10,7 +10,7 @@ import {
 type Props = {
   page: number;
   limit: number;
-  itemsLength: number;
+  total: number;
   onPageChange: (page: number) => void;
   onLimitChange: (limit: number) => void;
 };
@@ -18,10 +18,12 @@ type Props = {
 export function CargoPagination({
   page,
   limit,
-  itemsLength,
+  total,
   onPageChange,
   onLimitChange,
 }: Props) {
+  const totalPages = Math.ceil(total / limit);
+
   return (
     <div className="flex flex-col gap-4 rounded-xl border bg-white p-4 md:flex-row md:items-center md:justify-between">
       <div className="flex items-center gap-2">
@@ -35,7 +37,7 @@ export function CargoPagination({
             <SelectValue />
           </SelectTrigger>
 
-          <SelectContent>
+          <SelectContent className="bg-white border shadow-md">
             <SelectItem value="10">10</SelectItem>
             <SelectItem value="20">20</SelectItem>
             <SelectItem value="50">50</SelectItem>
@@ -53,12 +55,12 @@ export function CargoPagination({
         </Button>
 
         <p className="min-w-20 text-center text-sm text-slate-600">
-          Page {page}
+          Page {page} / {totalPages || 1}
         </p>
 
         <Button
           variant="outline"
-          disabled={itemsLength < limit}
+          disabled={page >= totalPages}
           onClick={() => onPageChange(page + 1)}
         >
           Next
