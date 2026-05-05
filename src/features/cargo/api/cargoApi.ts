@@ -39,6 +39,17 @@ export type Cargo = {
     total_currency: string | null;
     is_negotiable: boolean;
   } | null;
+  shipment_type: string | null;
+  dimensions: string | null;
+  packaging: string | null;
+  packaging_amount: number | null;
+  vehicles_amount: number | null;
+  vehicles_left: number | null;
+  loading_types: string[];
+  documents?: {
+    TIR?: boolean;
+  };
+  photos: string[];
 };
 
 export type CargoResponse = {

@@ -1,6 +1,16 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import type { Cargo } from "../api/cargoApi";
+import {
+  ArrowRight,
+  Box,
+  CircleDollarSign,
+  Package,
+  Phone,
+  Ruler,
+  Scale,
+  Truck,
+} from "lucide-react";
 
 type Props = {
   cargo: Cargo;
@@ -46,7 +56,6 @@ export function CargoCard({ cargo }: Props) {
                   {cargo.status}
                 </Badge>
               </div>
-
               <div className="rounded-xl bg-slate-50 p-4">
                 <div className="grid gap-4 md:grid-cols-[1fr_auto_1fr] md:items-center">
                   <div>
@@ -64,8 +73,9 @@ export function CargoCard({ cargo }: Props) {
                     </p>
                   </div>
 
-                  <div className="hidden h-px w-12 bg-slate-300 md:block" />
-
+                  <div className="hidden items-center justify-center rounded-full bg-white p-2 shadow-sm md:flex">
+                    <ArrowRight className="h-4 w-4 text-slate-500" />
+                  </div>
                   <div>
                     <p className="text-xs font-medium uppercase text-slate-400">
                       Tushirish
@@ -82,21 +92,86 @@ export function CargoCard({ cargo }: Props) {
                   </div>
                 </div>
               </div>
-
-              <div className="grid gap-3 text-sm md:grid-cols-4">
-                <Info label="Og‘irlik" value={`${cargo.weight ?? "-"} t`} />
-                <Info label="Hajm" value={`${cargo.volume ?? "-"} m³`} />
-                <Info label="Truck" value={cargo.truck_type ?? "-"} />
-                <Info label="Trailer" value={cargo.trailer_plate_type ?? "-"} />
+              {cargo.loading_types?.length > 0 && (
+                <div className="flex flex-wrap gap-2 mt-2">
+                  {cargo.loading_types.map((type) => (
+                    <Badge key={type} variant="outline">
+                      {type}
+                    </Badge>
+                  ))}
+                </div>
+              )}
+              <div className="grid gap-3 text-sm md:grid-cols-2 lg:grid-cols-4">
+                <Info
+                  label="Og‘irlik"
+                  value={`${cargo.weight ?? "-"} t`}
+                  icon={<Scale className="h-4 w-4" />}
+                />
+                <Info
+                  label="Hajm"
+                  value={`${cargo.volume ?? "-"} m³`}
+                  icon={<Box className="h-4 w-4" />}
+                />
+                <Info
+                  label="Truck"
+                  value={cargo.truck_type ?? "-"}
+                  icon={<Truck className="h-4 w-4" />}
+                />
+                <Info
+                  label="Trailer"
+                  value={cargo.trailer_plate_type ?? "-"}
+                  icon={<Truck className="h-4 w-4" />}
+                />
+                <Info
+                  label="Shipment"
+                  value={cargo.shipment_type ?? "-"}
+                  icon={<Package className="h-4 w-4" />}
+                />
+                <Info
+                  label="Dimensions"
+                  value={cargo.dimensions ?? "-"}
+                  icon={<Ruler className="h-4 w-4" />}
+                />
+                <Info
+                  label="Packaging"
+                  value={
+                    cargo.packaging
+                      ? `${cargo.packaging} · ${cargo.packaging_amount ?? "-"}`
+                      : "-"
+                  }
+                  icon={<Package className="h-4 w-4" />}
+                />
+                <Info
+                  label="Vehicles"
+                  value={`${cargo.vehicles_left ?? "-"} / ${cargo.vehicles_amount ?? "-"}`}
+                  icon={<Truck className="h-4 w-4" />}
+                />
               </div>
             </div>
 
-            <div className="rounded-xl border bg-slate-50 p-4 lg:min-w-52 lg:text-right">
-              <p className="text-xs text-slate-500">Narx</p>
-              <p className="text-2xl font-bold text-slate-950">{price}</p>
+            <div className="flex flex-wrap gap-2">
+              {cargo.payment?.is_negotiable && (
+                <Badge variant="secondary">Negotiable</Badge>
+              )}
 
+              {cargo.documents?.TIR && <Badge variant="outline">TIR</Badge>}
+
+              {cargo.photos?.length > 0 && (
+                <Badge variant="outline">{cargo.photos.length} photo</Badge>
+              )}
+            </div>
+
+            <div className="rounded-xl border bg-slate-50 p-4 lg:min-w-52 lg:text-right">
+              <p className="flex items-center gap-2 text-xs text-slate-500 lg:justify-end">
+                <CircleDollarSign className="h-4 w-4" />
+                Narx
+              </p>
+              <p className="text-2xl font-bold text-slate-950">{price}</p>
               <div className="mt-4 border-t pt-4">
-                <p className="text-xs text-slate-500">Kontakt</p>
+                <p className="flex items-center gap-2 text-xs text-slate-500 lg:justify-end">
+                  <Phone className="h-4 w-4" />
+                  Kontakt
+                </p>
                 <p className="font-medium text-slate-900">
                   {cargo.contact_name ?? "-"}
                 </p>
@@ -112,11 +187,22 @@ export function CargoCard({ cargo }: Props) {
   );
 }
 
-function Info({ label, value }: { label: string; value: string }) {
+function Info({
+  label,
+  value,
+  icon,
+}: {
+  label: string;
+  value: string;
+  icon?: React.ReactNode;
+}) {
   return (
-    <div className="rounded-lg border bg-white p-3">
-      <p className="text-xs text-slate-400">{label}</p>
-      <p className="font-medium text-slate-800">{value}</p>
+    <div className="rounded-xl border bg-white p-3 shadow-sm">
+      <div className="mb-2 flex items-center gap-2 text-slate-400">
+        {icon}
+        <p className="text-xs">{label}</p>
+      </div>
+      <p className="font-semibold text-slate-800">{value}</p>
     </div>
   );
 }

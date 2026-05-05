@@ -25,10 +25,11 @@ export default function CargoPage() {
   const [truckType, setTruckType] = useState("");
 
   const t = cargoDictionary[lang];
+  const hasActiveFilters = search || loadingCity || unloadingCity || truckType;
 
   const { data, isLoading, isError, refetch } = useCargoList({
-    page,
-    limit,
+    page: hasActiveFilters ? 1 : page,
+    limit: hasActiveFilters ? 50 : limit,
     lang,
   });
 
@@ -101,6 +102,26 @@ export default function CargoPage() {
     setPage(1);
   };
 
+  const handleSearchChange = (value: string) => {
+    setSearch(value);
+    setPage(1);
+  };
+
+  const handleLoadingCityChange = (value: string) => {
+    setLoadingCity(value);
+    setPage(1);
+  };
+
+  const handleUnloadingCityChange = (value: string) => {
+    setUnloadingCity(value);
+    setPage(1);
+  };
+
+  const handleTruckTypeChange = (value: string) => {
+    setTruckType(value);
+    setPage(1);
+  };
+
   return (
     <main className="min-h-screen bg-slate-50 p-4 md:p-8">
       <div className="mx-auto max-w-7xl space-y-6">
@@ -125,16 +146,15 @@ export default function CargoPage() {
         {!isLoading && !isError && (
           <>
             <CargoSummary total={total} label={t.total} />
-
             <CargoFilters
               search={search}
               loadingCity={loadingCity}
               unloadingCity={unloadingCity}
               truckType={truckType}
-              onSearchChange={setSearch}
-              onLoadingCityChange={setLoadingCity}
-              onUnloadingCityChange={setUnloadingCity}
-              onTruckTypeChange={setTruckType}
+              onSearchChange={handleSearchChange}
+              onLoadingCityChange={handleLoadingCityChange}
+              onUnloadingCityChange={handleUnloadingCityChange}
+              onTruckTypeChange={handleTruckTypeChange}
               onClear={handleClearFilters}
             />
 
@@ -144,13 +164,15 @@ export default function CargoPage() {
               <>
                 <CargoList cargos={filteredCargos} />
 
-                <CargoPagination
-                  page={page}
-                  limit={limit}
-                  total={total}
-                  onPageChange={setPage}
-                  onLimitChange={handleLimitChange}
-                />
+                {!hasActiveFilters && (
+                  <CargoPagination
+                    page={page}
+                    limit={limit}
+                    total={total}
+                    onPageChange={setPage}
+                    onLimitChange={handleLimitChange}
+                  />
+                )}
               </>
             )}
           </>
