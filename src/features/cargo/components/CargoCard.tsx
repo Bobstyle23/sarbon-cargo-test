@@ -1,6 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import type { Cargo } from "../api/cargoApi";
+import { Cargo } from "@/entities/Cargo";
 import {
   ArrowRight,
   Box,

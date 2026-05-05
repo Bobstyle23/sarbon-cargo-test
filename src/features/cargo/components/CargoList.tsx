@@ -1,4 +1,4 @@
-import type { Cargo } from "../api/cargoApi";
+import { Cargo } from "@/entities/Cargo";
 import { CargoCard } from "./CargoCard";
 
 type Props = {

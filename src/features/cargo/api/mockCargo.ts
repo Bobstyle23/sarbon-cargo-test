@@ -1,4 +1,4 @@
-import type { CargoResponse } from "./cargoApi";
+import { CargoResponse } from "@/entities/CargoResponse";
 
 export const mockCargoResponse: CargoResponse = {
   status: "success",
