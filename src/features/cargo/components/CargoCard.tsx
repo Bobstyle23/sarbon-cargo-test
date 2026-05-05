@@ -101,6 +101,14 @@ export function CargoCard({ cargo }: Props) {
                   ))}
                 </div>
               )}
+              {cargo.comment && (
+                <div className="rounded-xl border border-amber-200 bg-amber-50 p-4">
+                  <p className="text-xs font-medium uppercase text-amber-700">
+                    Dispatcher comment
+                  </p>
+                  <p className="mt-1 text-sm text-amber-900">{cargo.comment}</p>
+                </div>
+              )}
               <div className="grid gap-3 text-sm md:grid-cols-2 lg:grid-cols-4">
                 <Info
                   label="Og‘irlik"

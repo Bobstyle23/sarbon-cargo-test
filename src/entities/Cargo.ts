@@ -11,6 +11,7 @@ export interface Cargo {
   contact_name: string | null;
   contact_phone: string | null;
   created_at: string;
+  comment: string | null;
   route_points: RoutePoint[];
   cargo_type: {
     name_uz: string;

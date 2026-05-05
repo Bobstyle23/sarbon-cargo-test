@@ -22,7 +22,7 @@ export const cargoDictionary = {
       truckTypesAll: "Barcha transport turlari",
       refrigeratorType: "Muzlatgich",
       tentType: "Tentlik",
-      clearFilters: "Barcha filtrlarni tozalash",
+      clearFilter: "Barcha filtrlarni tozalash",
     },
   },
   ru: {
