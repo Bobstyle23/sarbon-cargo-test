@@ -18,6 +18,17 @@ export const mockCargoResponse: CargoResponse = {
         contact_name: "John_Doe",
         contact_phone: "+998509090051",
         created_at: "2026-05-02T11:37:44.987493+05:00",
+
+        shipment_type: "LTL",
+        dimensions: null,
+        packaging: null,
+        packaging_amount: null,
+        vehicles_amount: 1,
+        vehicles_left: 1,
+        loading_types: [],
+        documents: {},
+        photos: [],
+
         route_points: [
           {
             id: "load1",
@@ -36,17 +47,20 @@ export const mockCargoResponse: CargoResponse = {
             date: "2026-05-15T09:00:00Z",
           },
         ],
+
         cargo_type: {
           name_uz: "Go‘sht mahsulotlari",
           name_ru: "Мясная продукция",
           name_en: "Meat products",
         },
+
         payment: {
           total_amount: 4400,
           total_currency: "USD",
           is_negotiable: false,
         },
       },
+
       {
         id: "7d67ff2d-dfef-43c2-b3c9-075c19049bdf",
         name: "Пшеница, Туркестан → Лахор",
@@ -58,6 +72,17 @@ export const mockCargoResponse: CargoResponse = {
         contact_name: "NCM",
         contact_phone: "+998997965623",
         created_at: "2026-05-02T10:43:05.234124+05:00",
+
+        shipment_type: "FTL",
+        dimensions: "7x2x2",
+        packaging: "BAG",
+        packaging_amount: 120,
+        vehicles_amount: 1,
+        vehicles_left: 1,
+        loading_types: ["TOP", "SIDE"],
+        documents: { TIR: true },
+        photos: ["/mock/photo1.jpg"],
+
         route_points: [
           {
             id: "load2",
@@ -76,11 +101,13 @@ export const mockCargoResponse: CargoResponse = {
             date: "2026-05-29T21:00:00Z",
           },
         ],
+
         cargo_type: {
           name_uz: "Don mahsulotlari",
           name_ru: "Зерно",
           name_en: "Grain",
         },
+
         payment: {
           total_amount: 1000,
           total_currency: "USD",
