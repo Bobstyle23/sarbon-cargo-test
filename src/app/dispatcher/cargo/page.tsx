@@ -147,6 +147,7 @@ export default function CargoPage() {
           <>
             <CargoSummary total={total} label={t.total} />
             <CargoFilters
+              t={t}
               search={search}
               loadingCity={loadingCity}
               unloadingCity={unloadingCity}

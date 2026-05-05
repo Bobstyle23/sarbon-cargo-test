@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/select";
 
 type Props = {
+  t: any;
   search: string;
   loadingCity: string;
   unloadingCity: string;
@@ -21,6 +22,7 @@ type Props = {
 };
 
 export function CargoFilters({
+  t,
   search,
   loadingCity,
   unloadingCity,
@@ -35,19 +37,19 @@ export function CargoFilters({
     <div className="bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80">
       <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-4">
         <Input
-          placeholder="Search by cargo, city, contact..."
+          placeholder={t.filter.search}
           value={search}
           onChange={(e) => onSearchChange(e.target.value)}
         />
 
         <Input
-          placeholder="Loading city"
+          placeholder={t.filter.loadingCity}
           value={loadingCity}
           onChange={(e) => onLoadingCityChange(e.target.value)}
         />
 
         <Input
-          placeholder="Unloading city"
+          placeholder={t.filter.unloadingCity}
           value={unloadingCity}
           onChange={(e) => onUnloadingCityChange(e.target.value)}
         />
@@ -63,16 +65,18 @@ export function CargoFilters({
           </SelectTrigger>
 
           <SelectContent className="bg-white border shadow-md">
-            <SelectItem value="all">All truck types</SelectItem>
-            <SelectItem value="REFRIGERATOR">REFRIGERATOR</SelectItem>
-            <SelectItem value="TENT">TENT</SelectItem>
+            <SelectItem value="all">{t.filter.truckTypesAll}</SelectItem>
+            <SelectItem value="REFRIGERATOR">
+              {t.filter.refrigeratorType}
+            </SelectItem>
+            <SelectItem value="TENT">{t.filter.tentType}</SelectItem>
           </SelectContent>
         </Select>
       </div>
 
       <div className="mt-3 flex justify-end">
         <Button variant="outline" onClick={onClear}>
-          Clear filters
+          {t.filter.clearFilter}
         </Button>
       </div>
     </div>

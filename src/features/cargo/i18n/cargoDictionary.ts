@@ -15,6 +15,15 @@ export const cargoDictionary = {
     page: "Sahifa",
     previous: "Oldingi",
     next: "Keyingi",
+    filter: {
+      search: "Yuk, kontakt yoki shahar bo‘yicha qidirish...",
+      loadingCity: "Yuklash shahri",
+      unloadingCity: "Tushirish shahri",
+      truckTypesAll: "Barcha transport turlari",
+      refrigeratorType: "Muzlatgich",
+      tentType: "Tentlik",
+      clearFilters: "Barcha filtrlarni tozalash",
+    },
   },
   ru: {
     title: "Список грузов",
@@ -30,6 +39,15 @@ export const cargoDictionary = {
     page: "Страница",
     previous: "Назад",
     next: "Вперёд",
+    filter: {
+      search: "Поиск по грузу, контакту или городу...",
+      loadingCity: "Город загрузки",
+      unloadingCity: "Город разгрузки",
+      truckTypesAll: "Все типы транспорта",
+      refrigeratorType: "Xолодильник",
+      tentType: "Тентовый",
+      clearFilter: "Oчистить фильтры",
+    },
   },
   en: {
     title: "Cargo List",
@@ -45,5 +63,14 @@ export const cargoDictionary = {
     page: "Page",
     previous: "Previous",
     next: "Next",
+    filter: {
+      search: "Search by cargo, contact, or city...",
+      loadingCity: "Loading city",
+      unloadingCity: "Unloading city",
+      truckTypesAll: "All truck types",
+      refrigeratorType: "Refrigerator",
+      tentType: "Tent",
+      clearFilter: "Clear filters",
+    },
   },
 } as const;
