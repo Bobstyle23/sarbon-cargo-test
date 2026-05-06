@@ -7,9 +7,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useCargoI18n } from "../i18n/CargoI18nContext";
 
 type Props = {
-  t: any;
   search: string;
   loadingCity: string;
   unloadingCity: string;
@@ -22,7 +22,6 @@ type Props = {
 };
 
 export function CargoFilters({
-  t,
   search,
   loadingCity,
   unloadingCity,
@@ -33,6 +32,8 @@ export function CargoFilters({
   onTruckTypeChange,
   onClear,
 }: Props) {
+  const { t } = useCargoI18n();
+
   return (
     <div className="bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80">
       <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-4">

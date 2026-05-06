@@ -7,15 +7,15 @@ import {
 } from "@/components/ui/select";
 
 import type { Lang } from "../i18n/cargoDictionary";
+import { useCargoI18n } from "../i18n/CargoI18nContext";
 
 interface Props {
   title: string;
   subtitle: string;
-  lang: Lang;
-  onLangChange: (lang: Lang) => void;
 }
 
-export function CargoHeader({ title, subtitle, lang, onLangChange }: Props) {
+export function CargoHeader({ title, subtitle }: Props) {
+  const { lang, setLang } = useCargoI18n();
   return (
     <header className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
       <div>
@@ -25,10 +25,7 @@ export function CargoHeader({ title, subtitle, lang, onLangChange }: Props) {
         <p className="mt-1 text-slate-500">{subtitle}</p>
       </div>
 
-      <Select
-        value={lang}
-        onValueChange={(value) => onLangChange(value as Lang)}
-      >
+      <Select value={lang} onValueChange={(value) => setLang(value as Lang)}>
         <SelectTrigger className="w-[120px] bg-white">
           <SelectValue />
         </SelectTrigger>

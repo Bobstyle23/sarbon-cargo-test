@@ -18,6 +18,7 @@ export const mockCargoResponse: CargoResponse = {
         contact_name: "John_Doe",
         contact_phone: "+998509090051",
         created_at: "2026-05-02T11:37:44.987493+05:00",
+        comment: "no comment",
 
         shipment_type: "LTL",
         dimensions: null,
@@ -72,6 +73,7 @@ export const mockCargoResponse: CargoResponse = {
         contact_name: "NCM",
         contact_phone: "+998997965623",
         created_at: "2026-05-02T10:43:05.234124+05:00",
+        comment: "no comment",
 
         shipment_type: "FTL",
         dimensions: "7x2x2",

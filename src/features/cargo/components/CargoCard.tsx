@@ -11,6 +11,7 @@ import {
   Scale,
   Truck,
 } from "lucide-react";
+import { useCargoI18n } from "../i18n/CargoI18nContext";
 
 type Props = {
   cargo: Cargo;
@@ -31,6 +32,9 @@ export function CargoCard({ cargo }: Props) {
   const unloadPoint = cargo.route_points.find(
     (point) => point.type === "UNLOAD",
   );
+  const { t, lang } = useCargoI18n();
+
+  console.log(`name_` + lang);
 
   const price = cargo.payment?.total_amount
     ? `${cargo.payment.total_amount.toLocaleString()} ${cargo.payment.total_currency}`
@@ -48,7 +52,7 @@ export function CargoCard({ cargo }: Props) {
                     {cargo.name}
                   </h2>
                   <p className="mt-1 text-sm text-slate-500">
-                    {cargo.cargo_type?.name_uz ?? "Cargo turi ko‘rsatilmagan"}
+                    {cargo.cargo_type?.[`name_${lang}`] ?? t.cargo.cargoType}
                   </p>
                 </div>
 
@@ -60,7 +64,7 @@ export function CargoCard({ cargo }: Props) {
                 <div className="grid gap-4 md:grid-cols-[1fr_auto_1fr] md:items-center">
                   <div>
                     <p className="text-xs font-medium uppercase text-slate-400">
-                      Yuklash
+                      {t.cargoInfo.loadingPoint}
                     </p>
                     <p className="font-semibold text-slate-900">
                       {loadPoint?.city_name ?? "Noma’lum"}
@@ -78,7 +82,7 @@ export function CargoCard({ cargo }: Props) {
                   </div>
                   <div>
                     <p className="text-xs font-medium uppercase text-slate-400">
-                      Tushirish
+                      {t.cargoInfo.unloadingPoint}
                     </p>
                     <p className="font-semibold text-slate-900">
                       {unloadPoint?.city_name ?? "Noma’lum"}
@@ -104,44 +108,44 @@ export function CargoCard({ cargo }: Props) {
               {cargo.comment && (
                 <div className="rounded-xl border border-amber-200 bg-amber-50 p-4">
                   <p className="text-xs font-medium uppercase text-amber-700">
-                    Dispatcher comment
+                    {t.cargo.comment}
                   </p>
                   <p className="mt-1 text-sm text-amber-900">{cargo.comment}</p>
                 </div>
               )}
               <div className="grid gap-3 text-sm md:grid-cols-2 lg:grid-cols-4">
                 <Info
-                  label="Og‘irlik"
+                  label={t.cargo.weight}
                   value={`${cargo.weight ?? "-"} t`}
                   icon={<Scale className="h-4 w-4" />}
                 />
                 <Info
-                  label="Hajm"
+                  label={t.cargo.volume}
                   value={`${cargo.volume ?? "-"} m³`}
                   icon={<Box className="h-4 w-4" />}
                 />
                 <Info
-                  label="Truck"
+                  label={t.cargo.truckType}
                   value={cargo.truck_type ?? "-"}
                   icon={<Truck className="h-4 w-4" />}
                 />
                 <Info
-                  label="Trailer"
+                  label={t.cargo.trailer}
                   value={cargo.trailer_plate_type ?? "-"}
                   icon={<Truck className="h-4 w-4" />}
                 />
                 <Info
-                  label="Shipment"
+                  label={t.cargo.shipment}
                   value={cargo.shipment_type ?? "-"}
                   icon={<Package className="h-4 w-4" />}
                 />
                 <Info
-                  label="Dimensions"
+                  label={t.cargo.dimension}
                   value={cargo.dimensions ?? "-"}
                   icon={<Ruler className="h-4 w-4" />}
                 />
                 <Info
-                  label="Packaging"
+                  label={t.cargo.packaging}
                   value={
                     cargo.packaging
                       ? `${cargo.packaging} · ${cargo.packaging_amount ?? "-"}`
@@ -150,7 +154,7 @@ export function CargoCard({ cargo }: Props) {
                   icon={<Package className="h-4 w-4" />}
                 />
                 <Info
-                  label="Vehicles"
+                  label={t.cargo.vehicles}
                   value={`${cargo.vehicles_left ?? "-"} / ${cargo.vehicles_amount ?? "-"}`}
                   icon={<Truck className="h-4 w-4" />}
                 />
@@ -172,13 +176,13 @@ export function CargoCard({ cargo }: Props) {
             <div className="rounded-xl border bg-slate-50 p-4 lg:min-w-52 lg:text-right">
               <p className="flex items-center gap-2 text-xs text-slate-500 lg:justify-end">
                 <CircleDollarSign className="h-4 w-4" />
-                Narx
+                {t.cargo.price}
               </p>
               <p className="text-2xl font-bold text-slate-950">{price}</p>
               <div className="mt-4 border-t pt-4">
                 <p className="flex items-center gap-2 text-xs text-slate-500 lg:justify-end">
                   <Phone className="h-4 w-4" />
-                  Kontakt
+                  {t.cargo.contact}
                 </p>
                 <p className="font-medium text-slate-900">
                   {cargo.contact_name ?? "-"}

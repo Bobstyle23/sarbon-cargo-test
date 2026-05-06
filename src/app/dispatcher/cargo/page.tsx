@@ -10,23 +10,30 @@ import { CargoState } from "@/features/cargo/components/CargoState";
 import { CargoSkeleton } from "@/features/cargo/components/CargoSkeleton";
 import { CargoFilters } from "@/features/cargo/components/CargoFilters";
 import {
-  cargoDictionary,
-  type Lang,
-} from "@/features/cargo/i18n/cargoDictionary";
+  CargoI18nProvider,
+  useCargoI18n,
+} from "@/features/cargo/i18n/CargoI18nContext";
 
 export default function CargoPage() {
+  return (
+    <CargoI18nProvider>
+      <CargoPageContent />
+    </CargoI18nProvider>
+  );
+}
+
+function CargoPageContent() {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(20);
-  const [lang, setLang] = useState<Lang>("uz");
 
   const [search, setSearch] = useState("");
   const [loadingCity, setLoadingCity] = useState("");
   const [unloadingCity, setUnloadingCity] = useState("");
   const [truckType, setTruckType] = useState("");
 
-  const t = cargoDictionary[lang];
   const hasActiveFilters = search || loadingCity || unloadingCity || truckType;
 
+  const { lang, t } = useCargoI18n();
   const { data, isLoading, isError, refetch } = useCargoList({
     page: hasActiveFilters ? 1 : page,
     limit: hasActiveFilters ? 50 : limit,
@@ -125,12 +132,7 @@ export default function CargoPage() {
   return (
     <main className="min-h-screen bg-slate-50 p-4 md:p-8">
       <div className="mx-auto max-w-7xl space-y-6">
-        <CargoHeader
-          title={t.title}
-          subtitle={t.subtitle}
-          lang={lang}
-          onLangChange={setLang}
-        />
+        <CargoHeader title={t.title} subtitle={t.subtitle} />
 
         {isLoading && <CargoSkeleton />}
 
@@ -147,7 +149,6 @@ export default function CargoPage() {
           <>
             <CargoSummary total={total} label={t.total} />
             <CargoFilters
-              t={t}
               search={search}
               loadingCity={loadingCity}
               unloadingCity={unloadingCity}

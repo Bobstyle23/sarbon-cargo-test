@@ -1,3 +1,5 @@
+import { Weight } from "lucide-react";
+
 export type Lang = "uz" | "ru" | "en";
 
 export const cargoDictionary = {
@@ -24,6 +26,30 @@ export const cargoDictionary = {
       tentType: "Tentlik",
       clearFilter: "Barcha filtrlarni tozalash",
     },
+    cargo: {
+      weight: "Og‘irlik",
+      volume: "Hajm",
+      truckType: "Yuk mashina turi",
+      trailer: "Treyler turi",
+      shipment: "Jo'natish turi",
+      dimension: "O'lchami",
+      packaging: "Qadoqlash",
+      vehicles: "Transport vositalari soni",
+      price: "Narx",
+      contact: "Aloqa",
+      comment: "Qo'shimcha izoh",
+      cargoType: "Cargo turi ko‘rsatilmagan",
+    },
+    cargoInfo: {
+      loadingPoint: "Yuklash Joyi",
+      unloadingPoint: "Tushirish Joyi",
+    },
+    pagination: {
+      limit: "Limit",
+      previous: "Oldingi",
+      next: "Keyingi",
+      page: "Sahifa",
+    },
   },
   ru: {
     title: "Список грузов",
@@ -48,6 +74,30 @@ export const cargoDictionary = {
       tentType: "Тентовый",
       clearFilter: "Oчистить фильтры",
     },
+    cargo: {
+      weight: "Вес",
+      volume: "Объём",
+      truckType: "Тип грузовика",
+      trailer: "Тип прицепа",
+      shipment: "Тип перевозки",
+      dimension: "Габариты",
+      packaging: "Упаковка",
+      vehicles: "Количество транспортных средств",
+      price: "Цена",
+      contact: "Контакт",
+      comment: "Доп. просьба",
+      cargoType: "Тип груза не указан",
+    },
+    cargoInfo: {
+      loadingPoint: "Пункт загрузки",
+      unloadingPoint: "Пункт разгрузки",
+    },
+    pagination: {
+      limit: "Лимит",
+      previous: "Предыдущая",
+      next: "Следующая",
+      page: "Страница",
+    },
   },
   en: {
     title: "Cargo List",
@@ -71,6 +121,30 @@ export const cargoDictionary = {
       refrigeratorType: "Refrigerator",
       tentType: "Tent",
       clearFilter: "Clear filters",
+    },
+    cargo: {
+      weight: "Weight",
+      volume: "Volume",
+      truckType: "Truck type",
+      trailer: "Trailer type",
+      shipment: "Shipment type",
+      dimension: "Dimensions",
+      packaging: "Packaging",
+      vehicles: "Number of vehicles",
+      price: "Price",
+      contact: "Contact",
+      comment: "Additional comment",
+      cargoType: "Cargo type not specified",
+    },
+    cargoInfo: {
+      loadingPoint: "Loading Point",
+      unloadingPoint: "Unloading Point",
+    },
+    pagination: {
+      limit: "Limit",
+      previous: "Previous",
+      next: "Next",
+      page: "Page",
     },
   },
 } as const;
