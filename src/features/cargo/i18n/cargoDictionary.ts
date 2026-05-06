@@ -145,7 +145,7 @@ export const cargoDictionary = {
       contact: "Contact",
       comment: "Additional comment",
       cargoType: "Cargo type not specified",
-      allTailerTypes: "All trailer types",
+      allTrailerTypes: "All trailer types",
       allTruckTypes: "All truck types",
     },
     cargoInfo: {
