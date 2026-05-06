@@ -31,8 +31,10 @@ function CargoPageContent() {
   const [loadingCity, setLoadingCity] = useState("");
   const [unloadingCity, setUnloadingCity] = useState("");
   const [truckType, setTruckType] = useState("");
+  const [trailerType, setTrailerType] = useState("");
   const [sortOrder, setSortOrder] = useState<"desc" | "asc">("desc");
-  const hasActiveFilters = search || loadingCity || unloadingCity || truckType;
+  const hasActiveFilters =
+    search || loadingCity || unloadingCity || truckType || trailerType;
 
   const { lang, t } = useCargoI18n();
   const { data, isLoading, isError, refetch } = useCargoList({
@@ -57,6 +59,7 @@ function CargoPageContent() {
       const loadingCityValue = loadingCity.toLowerCase().trim();
       const unloadingCityValue = unloadingCity.toLowerCase().trim();
       const truckTypeValue = truckType.toLowerCase().trim();
+      const trailerTypeValue = trailerType.toLowerCase().trim();
 
       const searchableText = [
         cargo.name,
@@ -92,11 +95,16 @@ function CargoPageContent() {
         ? cargo.truck_type?.toLowerCase().includes(truckTypeValue)
         : true;
 
+      const matchesTrailerType = trailerTypeValue
+        ? cargo.trailer_plate_type?.toLowerCase().includes(trailerTypeValue)
+        : true;
+
       return (
         matchesSearch &&
         matchesLoadingCity &&
         matchesUnloadingCity &&
-        matchesTruckType
+        matchesTruckType &&
+        matchesTrailerType
       );
     })
     .sort((a: Cargo, b: Cargo) => {
@@ -105,6 +113,14 @@ function CargoPageContent() {
 
       return sortOrder === "desc" ? dateB - dateA : dateA - dateB;
     });
+
+  const truckTypeOptions = Array.from(
+    new Set(cargos.map((cargo) => cargo.truck_type).filter(Boolean)),
+  ) as string[];
+
+  const trailerTypeOptions = Array.from(
+    new Set(cargos.map((cargo) => cargo.trailer_plate_type).filter(Boolean)),
+  ) as string[];
 
   const handleLimitChange = (newLimit: number) => {
     setLimit(newLimit);
@@ -116,6 +132,7 @@ function CargoPageContent() {
     setLoadingCity("");
     setUnloadingCity("");
     setTruckType("");
+    setTrailerType("");
     setPage(1);
   };
 
@@ -136,6 +153,11 @@ function CargoPageContent() {
 
   const handleTruckTypeChange = (value: string) => {
     setTruckType(value);
+    setPage(1);
+  };
+
+  const handleTrailerTypeChange = (value: string) => {
+    setTrailerType(value);
     setPage(1);
   };
 
@@ -163,11 +185,15 @@ function CargoPageContent() {
               loadingCity={loadingCity}
               unloadingCity={unloadingCity}
               truckType={truckType}
+              trailerType={trailerType}
+              truckTypeOptions={truckTypeOptions}
+              trailerTypeOptions={trailerTypeOptions}
               sortOrder={sortOrder}
               onSearchChange={handleSearchChange}
               onLoadingCityChange={handleLoadingCityChange}
               onUnloadingCityChange={handleUnloadingCityChange}
               onTruckTypeChange={handleTruckTypeChange}
+              onTrailerTypeChange={handleTrailerTypeChange}
               onClear={handleClearFilters}
               onSortOrderChange={setSortOrder}
             />

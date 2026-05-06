@@ -1,5 +1,3 @@
-import { Weight } from "lucide-react";
-
 export type Lang = "uz" | "ru" | "en";
 
 export const cargoDictionary = {
@@ -39,6 +37,8 @@ export const cargoDictionary = {
       contact: "Aloqa",
       comment: "Qo'shimcha izoh",
       cargoType: "Cargo turi ko‘rsatilmagan",
+      allTruckTypes: "Barcha transport turlari",
+      allTrailerTypes: "Barcha treyler turlari",
     },
     cargoInfo: {
       loadingPoint: "Yuklash Joyi",
@@ -91,6 +91,8 @@ export const cargoDictionary = {
       contact: "Контакт",
       comment: "Доп. просьба",
       cargoType: "Тип груза не указан",
+      allTruckTypes: "Все типы транспорта",
+      allTrailerTypes: "Все типы прицепов",
     },
     cargoInfo: {
       loadingPoint: "Пункт загрузки",
@@ -143,6 +145,8 @@ export const cargoDictionary = {
       contact: "Contact",
       comment: "Additional comment",
       cargoType: "Cargo type not specified",
+      allTailerTypes: "All trailer types",
+      allTruckTypes: "All truck types",
     },
     cargoInfo: {
       loadingPoint: "Loading Point",

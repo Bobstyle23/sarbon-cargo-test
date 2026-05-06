@@ -14,11 +14,15 @@ type Props = {
   loadingCity: string;
   unloadingCity: string;
   truckType: string;
+  trailerType: string;
+  truckTypeOptions: string[];
+  trailerTypeOptions: string[];
   sortOrder: string;
   onSearchChange: (value: string) => void;
   onLoadingCityChange: (value: string) => void;
   onUnloadingCityChange: (value: string) => void;
   onTruckTypeChange: (value: string) => void;
+  onTrailerTypeChange: (value: string) => void;
   onClear: () => void;
   onSortOrderChange: (value: "desc" | "asc") => void;
 };
@@ -28,11 +32,15 @@ export function CargoFilters({
   loadingCity,
   unloadingCity,
   truckType,
+  trailerType,
+  truckTypeOptions,
+  trailerTypeOptions,
   sortOrder,
   onSearchChange,
   onLoadingCityChange,
   onUnloadingCityChange,
   onTruckTypeChange,
+  onTrailerTypeChange,
   onClear,
   onSortOrderChange,
 }: Props) {
@@ -46,13 +54,11 @@ export function CargoFilters({
           value={search}
           onChange={(e) => onSearchChange(e.target.value)}
         />
-
         <Input
           placeholder={t.filter.loadingCity}
           value={loadingCity}
           onChange={(e) => onLoadingCityChange(e.target.value)}
         />
-
         <Input
           placeholder={t.filter.unloadingCity}
           value={unloadingCity}
@@ -69,12 +75,35 @@ export function CargoFilters({
             <SelectValue placeholder="Truck type" />
           </SelectTrigger>
 
-          <SelectContent className="bg-white border shadow-md">
-            <SelectItem value="all">{t.filter.truckTypesAll}</SelectItem>
-            <SelectItem value="REFRIGERATOR">
-              {t.filter.refrigeratorType}
-            </SelectItem>
-            <SelectItem value="TENT">{t.filter.tentType}</SelectItem>
+          <SelectContent className="border bg-white shadow-md">
+            <SelectItem value="all">{t.cargo.allTruckTypes}</SelectItem>
+
+            {truckTypeOptions.map((type) => (
+              <SelectItem key={type} value={type}>
+                {type}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+
+        <Select
+          value={trailerType || "all"}
+          onValueChange={(value) => {
+            onTrailerTypeChange(value === "all" ? "" : value);
+          }}
+        >
+          <SelectTrigger className="w-full bg-white">
+            <SelectValue placeholder="Trailer type" />
+          </SelectTrigger>
+
+          <SelectContent className="border bg-white shadow-md">
+            <SelectItem value="all">{t.cargo.allTrailerTypes}</SelectItem>
+
+            {trailerTypeOptions.map((type) => (
+              <SelectItem key={type} value={type}>
+                {type}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
         <Select
