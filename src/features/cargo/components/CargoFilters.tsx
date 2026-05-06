@@ -14,11 +14,13 @@ type Props = {
   loadingCity: string;
   unloadingCity: string;
   truckType: string;
+  sortOrder: string;
   onSearchChange: (value: string) => void;
   onLoadingCityChange: (value: string) => void;
   onUnloadingCityChange: (value: string) => void;
   onTruckTypeChange: (value: string) => void;
   onClear: () => void;
+  onSortOrderChange: (value: "desc" | "asc") => void;
 };
 
 export function CargoFilters({
@@ -26,11 +28,13 @@ export function CargoFilters({
   loadingCity,
   unloadingCity,
   truckType,
+  sortOrder,
   onSearchChange,
   onLoadingCityChange,
   onUnloadingCityChange,
   onTruckTypeChange,
   onClear,
+  onSortOrderChange,
 }: Props) {
   const { t } = useCargoI18n();
 
@@ -71,6 +75,19 @@ export function CargoFilters({
               {t.filter.refrigeratorType}
             </SelectItem>
             <SelectItem value="TENT">{t.filter.tentType}</SelectItem>
+          </SelectContent>
+        </Select>
+        <Select
+          value={sortOrder}
+          onValueChange={(value) => onSortOrderChange(value as "desc" | "asc")}
+        >
+          <SelectTrigger className="w-full bg-white">
+            <SelectValue placeholder="Sort by date" />
+          </SelectTrigger>
+
+          <SelectContent className="bg-white border shadow-md">
+            <SelectItem value="desc">{t.sort.newest}</SelectItem>
+            <SelectItem value="asc">{t.sort.oldest}</SelectItem>
           </SelectContent>
         </Select>
       </div>

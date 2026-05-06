@@ -13,6 +13,7 @@ import {
   CargoI18nProvider,
   useCargoI18n,
 } from "@/features/cargo/i18n/CargoI18nContext";
+import { Cargo } from "@/entities/Cargo";
 
 export default function CargoPage() {
   return (
@@ -30,7 +31,7 @@ function CargoPageContent() {
   const [loadingCity, setLoadingCity] = useState("");
   const [unloadingCity, setUnloadingCity] = useState("");
   const [truckType, setTruckType] = useState("");
-
+  const [sortOrder, setSortOrder] = useState<"desc" | "asc">("desc");
   const hasActiveFilters = search || loadingCity || unloadingCity || truckType;
 
   const { lang, t } = useCargoI18n();
@@ -43,58 +44,67 @@ function CargoPageContent() {
   const cargos = data?.data.items ?? [];
   const total = data?.data.total ?? 0;
 
-  const filteredCargos = cargos.filter((cargo) => {
-    const loadPoint = cargo.route_points.find((point) => point.type === "LOAD");
-    const unloadPoint = cargo.route_points.find(
-      (point) => point.type === "UNLOAD",
-    );
+  const filteredCargos = cargos
+    .filter((cargo) => {
+      const loadPoint = cargo.route_points.find(
+        (point) => point.type === "LOAD",
+      );
+      const unloadPoint = cargo.route_points.find(
+        (point) => point.type === "UNLOAD",
+      );
 
-    const searchValue = search.toLowerCase().trim();
-    const loadingCityValue = loadingCity.toLowerCase().trim();
-    const unloadingCityValue = unloadingCity.toLowerCase().trim();
-    const truckTypeValue = truckType.toLowerCase().trim();
+      const searchValue = search.toLowerCase().trim();
+      const loadingCityValue = loadingCity.toLowerCase().trim();
+      const unloadingCityValue = unloadingCity.toLowerCase().trim();
+      const truckTypeValue = truckType.toLowerCase().trim();
 
-    const searchableText = [
-      cargo.name,
-      cargo.contact_name,
-      cargo.contact_phone,
-      cargo.cargo_type?.name_uz,
-      cargo.cargo_type?.name_ru,
-      cargo.cargo_type?.name_en,
-      cargo.truck_type,
-      cargo.trailer_plate_type,
-      loadPoint?.city_name,
-      loadPoint?.address,
-      unloadPoint?.city_name,
-      unloadPoint?.address,
-    ]
-      .filter(Boolean)
-      .join(" ")
-      .toLowerCase();
+      const searchableText = [
+        cargo.name,
+        cargo.contact_name,
+        cargo.contact_phone,
+        cargo.cargo_type?.name_uz,
+        cargo.cargo_type?.name_ru,
+        cargo.cargo_type?.name_en,
+        cargo.truck_type,
+        cargo.trailer_plate_type,
+        loadPoint?.city_name,
+        loadPoint?.address,
+        unloadPoint?.city_name,
+        unloadPoint?.address,
+      ]
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase();
 
-    const matchesSearch = searchValue
-      ? searchableText.includes(searchValue)
-      : true;
+      const matchesSearch = searchValue
+        ? searchableText.includes(searchValue)
+        : true;
 
-    const matchesLoadingCity = loadingCityValue
-      ? loadPoint?.city_name.toLowerCase().includes(loadingCityValue)
-      : true;
+      const matchesLoadingCity = loadingCityValue
+        ? loadPoint?.city_name.toLowerCase().includes(loadingCityValue)
+        : true;
 
-    const matchesUnloadingCity = unloadingCityValue
-      ? unloadPoint?.city_name.toLowerCase().includes(unloadingCityValue)
-      : true;
+      const matchesUnloadingCity = unloadingCityValue
+        ? unloadPoint?.city_name.toLowerCase().includes(unloadingCityValue)
+        : true;
 
-    const matchesTruckType = truckTypeValue
-      ? cargo.truck_type?.toLowerCase().includes(truckTypeValue)
-      : true;
+      const matchesTruckType = truckTypeValue
+        ? cargo.truck_type?.toLowerCase().includes(truckTypeValue)
+        : true;
 
-    return (
-      matchesSearch &&
-      matchesLoadingCity &&
-      matchesUnloadingCity &&
-      matchesTruckType
-    );
-  });
+      return (
+        matchesSearch &&
+        matchesLoadingCity &&
+        matchesUnloadingCity &&
+        matchesTruckType
+      );
+    })
+    .sort((a: Cargo, b: Cargo) => {
+      const dateA = new Date(a.created_at).getTime();
+      const dateB = new Date(b.created_at).getTime();
+
+      return sortOrder === "desc" ? dateB - dateA : dateA - dateB;
+    });
 
   const handleLimitChange = (newLimit: number) => {
     setLimit(newLimit);
@@ -153,11 +163,13 @@ function CargoPageContent() {
               loadingCity={loadingCity}
               unloadingCity={unloadingCity}
               truckType={truckType}
+              sortOrder={sortOrder}
               onSearchChange={handleSearchChange}
               onLoadingCityChange={handleLoadingCityChange}
               onUnloadingCityChange={handleUnloadingCityChange}
               onTruckTypeChange={handleTruckTypeChange}
               onClear={handleClearFilters}
+              onSortOrderChange={setSortOrder}
             />
 
             {filteredCargos.length === 0 ? (

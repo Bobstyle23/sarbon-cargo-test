@@ -50,6 +50,10 @@ export const cargoDictionary = {
       next: "Keyingi",
       page: "Sahifa",
     },
+    sort: {
+      newest: "Eng yangilari",
+      oldest: "Eng eskilari",
+    },
   },
   ru: {
     title: "Список грузов",
@@ -98,6 +102,10 @@ export const cargoDictionary = {
       next: "Следующая",
       page: "Страница",
     },
+    sort: {
+      newest: "Сначала новые",
+      oldest: "Сначала старые",
+    },
   },
   en: {
     title: "Cargo List",
@@ -145,6 +153,10 @@ export const cargoDictionary = {
       previous: "Previous",
       next: "Next",
       page: "Page",
+    },
+    sort: {
+      newest: "Newest first",
+      oldest: "Oldest first",
     },
   },
 } as const;
