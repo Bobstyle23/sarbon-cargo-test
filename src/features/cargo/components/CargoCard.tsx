@@ -113,7 +113,7 @@ export function CargoCard({ cargo }: Props) {
                   <p className="mt-1 text-sm text-amber-900">{cargo.comment}</p>
                 </div>
               )}
-              <div className="grid gap-3 text-sm md:grid-cols-2 lg:grid-cols-4">
+              <div className="grid grid-cols-2 gap-3 text-sm sm:grid-cols-2 lg:grid-cols-4">
                 <Info
                   label={t.cargo.weight}
                   value={`${cargo.weight ?? "-"} t`}
@@ -209,12 +209,15 @@ function Info({
   icon?: React.ReactNode;
 }) {
   return (
-    <div className="rounded-xl border bg-white p-3 shadow-sm">
+    <div className="min-w-0 rounded-xl border bg-white p-3 shadow-sm">
       <div className="mb-2 flex items-center gap-2 text-slate-400">
         {icon}
-        <p className="text-xs">{label}</p>
+        <p className="truncate text-xs">{label}</p>
       </div>
-      <p className="font-semibold text-slate-800">{value}</p>
+
+      <p className="break-words text-sm font-semibold text-slate-800">
+        {value}
+      </p>
     </div>
   );
 }
