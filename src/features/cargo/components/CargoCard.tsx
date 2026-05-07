@@ -12,6 +12,7 @@ import {
   Truck,
 } from "lucide-react";
 import { useCargoI18n } from "../i18n/CargoI18nContext";
+import Image from "next/image";
 
 type Props = {
   cargo: Cargo;
@@ -160,38 +161,49 @@ export function CargoCard({ cargo }: Props) {
                 />
               </div>
             </div>
-
             <div className="flex flex-wrap gap-2">
               {cargo.payment?.is_negotiable && (
                 <Badge variant="secondary">Negotiable</Badge>
               )}
-
               {cargo.documents?.TIR && <Badge variant="outline">TIR</Badge>}
-
+            </div>
+            <div className="space-y-3">
               {cargo.photos?.length > 0 && (
-                <Badge variant="outline">{cargo.photos.length} photo</Badge>
+                <div className="overflow-hidden rounded-xl border">
+                  <Image
+                    src={cargo.photos[0]}
+                    alt={cargo.name}
+                    width={320}
+                    height={180}
+                    className="h-40 w-full object-cover lg:h-28 lg:w-56"
+                  />
+                </div>
               )}
-            </div>
 
-            <div className="rounded-xl border bg-slate-50 p-4 lg:min-w-52 lg:text-right">
-              <p className="flex items-center gap-2 text-xs text-slate-500 lg:justify-end">
-                <CircleDollarSign className="h-4 w-4" />
-                {t.cargo.price}
-              </p>
-              <p className="text-2xl font-bold text-slate-950">{price}</p>
-              <div className="mt-4 border-t pt-4">
+              <div className="rounded-xl border bg-slate-50 p-4 lg:min-w-52 lg:text-right">
                 <p className="flex items-center gap-2 text-xs text-slate-500 lg:justify-end">
-                  <Phone className="h-4 w-4" />
-                  {t.cargo.contact}
+                  <CircleDollarSign className="h-4 w-4" />
+                  {t.cargo.price}
                 </p>
-                <p className="font-medium text-slate-900">
-                  {cargo.contact_name ?? "-"}
-                </p>
-                <p className="text-sm text-slate-500">
-                  {cargo.contact_phone ?? "-"}
-                </p>
+
+                <p className="text-2xl font-bold text-slate-950">{price}</p>
+
+                <div className="mt-4 border-t pt-4">
+                  <p className="flex items-center gap-2 text-xs text-slate-500 lg:justify-end">
+                    <Phone className="h-4 w-4" />
+                    {t.cargo.contact}
+                  </p>
+
+                  <p className="font-medium text-slate-900">
+                    {cargo.contact_name ?? "-"}
+                  </p>
+
+                  <p className="text-sm text-slate-500">
+                    {cargo.contact_phone ?? "-"}
+                  </p>
+                </div>
               </div>
-            </div>
+            </div>{" "}
           </div>
         </div>
       </CardContent>
